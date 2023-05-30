@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       projects: [],
-      baseUrl: 'http://127.0.0.1:8001',
+      baseUrl: 'http://127.0.0.1:8000',
     }
   },
   methods: {
@@ -16,7 +16,7 @@ export default {
       )
         .then(response => {
           console.log(response);
-          this.projects = response.data.results;
+          this.projects = response.data.results.data;
           console.log(this.projects)
 
         });
