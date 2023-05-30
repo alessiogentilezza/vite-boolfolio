@@ -1,16 +1,16 @@
 <script>
-  import AppMain from './components/AppMain.vue';
+  import ProjectCard from './components/ProjectCard.vue';
 
   export default {
     components: {
-      AppMain
+      ProjectCard
     }
   }
 
 </script>
 
 <template>
-  <AppMain></AppMain>
+  <ProjectCard></ProjectCard>
 </template>
 
 <style scoped>
