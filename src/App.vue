@@ -1,18 +1,18 @@
 <script>
-  import ProjectCard from './components/ProjectCard.vue';
 
-  export default {
-    components: {
-      ProjectCard
-    }
+import AppHeader from './components/AppHeader.vue';
+
+export default {
+  components: {
+    AppHeader,
   }
+}
 
 </script>
 
 <template>
-  <ProjectCard></ProjectCard>
+  <AppHeader></AppHeader>
+  <router-view></router-view>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
