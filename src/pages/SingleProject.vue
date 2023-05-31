@@ -19,7 +19,7 @@
             
             console.log(slug);
 
-            axios.get(`${this.store.baseUrl}/api/project/${slug}`)
+            axios.get(`${this.store.baseUrl}/api/projects/${slug}`)
             .then(response => {
                 console.log(response);
             });
