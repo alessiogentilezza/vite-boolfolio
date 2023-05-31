@@ -4,26 +4,26 @@
 
 
 <script>
-    import axios from 'axios';
-    import { store } from '../store.js';
+import axios from 'axios';
+import { store } from '../store.js';
 
-    export default {
-        name: 'SingleProject',
-        data() {
-            return {
-                store
-            }
-        },
-        mounted() {
-            const slug = this.$route.params.slug;
-            
-            console.log(slug);
+export default {
+    name: 'SingleProject',
+    data() {
+        return {
+            store
+        }
+    },
+    mounted() {
+        const slug = this.$route.params.slug;
 
-            axios.get(`${this.store.baseUrl}/api/projects/${slug}`)
+        console.log(slug);
+
+        axios.get(`${this.store.baseUrl}/api/project/${slug}`)
             .then(response => {
                 console.log(response);
             });
 
-        }
     }
+}
 </script>
