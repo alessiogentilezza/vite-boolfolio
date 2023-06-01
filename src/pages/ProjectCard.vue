@@ -9,18 +9,21 @@ export default {
     return {
       projects: [],
       store,
+      loading: true
+
     }
   },
   methods: {
     getProjects() {
-      console.log('prova axios');
+      this.loading = true;
       axios.get(`${this.store.baseUrl}/api/projects`
       )
         .then(response => {
           console.log(response);
-          this.projects = response.data.results.data;
-          console.log(this.projects)
-
+          this.projects = response.data.results;
+          this.loading = false;
+          // this.projects = response.data.results.data; //per usare la paginate
+          // console.log(this.projects)
         });
     },
   },
@@ -28,13 +31,10 @@ export default {
     this.getProjects();
   }
 }
-
-
-
 </script>
 
 <template>
-  <div class="container d-flex flex-wrap p-0">
+  <div v-if="loading == false" class="container d-flex flex-wrap p-0">
     <div v-for="project in projects">
       <div class="card m-3" style="width: 18rem;">
         <div class="card">
@@ -46,7 +46,10 @@ export default {
             <h5 class="card-title">{{ project.title }}</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
               card's content.</p>
-            <h6 class="card-subtitle mb-3 text-success">Tipo di linguaggio: {{ project.type?.name }}</h6>
+            <h6 class="card-subtitle text-success mb-2">Tipo di linguaggio: {{ project.type?.name }}</h6>
+            <h6 class="card-subtitle text-primary mb-1">Tecnology:</h6>
+            <li v-for="tecnology in project.technologies" class="card-subtitle text-primary pb-1">{{ tecnology.name }}
+            </li>
 
             <router-link :to="{ name: 'single-project', params: { slug: project.slug } }"
               class="badge rounded-pill text-bg-warning">
@@ -58,6 +61,31 @@ export default {
       </div>
     </div>
   </div>
+  <div v-else>
+    <span class="loader m-3"></span>
+    <p class="text-secondary ms-3">Loading...</p>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, .5);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>

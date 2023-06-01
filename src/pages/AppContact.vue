@@ -4,7 +4,7 @@
 
 
 <script>
-    export default {
-        name: 'AppContact'
-    }
+export default {
+    name: 'AppContact'
+}
 </script>
