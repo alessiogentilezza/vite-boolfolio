@@ -52,7 +52,7 @@ export default {
             </li>
 
             <router-link :to="{ name: 'single-project', params: { slug: project.slug } }"
-              class="badge rounded-pill text-bg-warning">
+              class="badge rounded-pill text-bg-warning text-decoration-none">
               Vedi progetto completo
             </router-link>
 

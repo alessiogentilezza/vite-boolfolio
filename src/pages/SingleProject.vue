@@ -17,6 +17,12 @@
                         <li v-for="tecnology in project.technologies" class="card-subtitle text-primary pb-1">
                             {{ tecnology.name }}
                         </li>
+                        <div class="d-flex justify-content-end">
+                            <router-link :to="{ name: 'projects' }" class="badge rounded-pill text-bg-danger">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </router-link>
+                        </div>
+
 
                     </div>
                 </div>
@@ -51,7 +57,7 @@ export default {
                 if (response.data.success == true) {
                     this.project = response.data.project;
                 } else {
-                    // alert('oh oh manca qualcosa');
+                    alert(response.data.error);
                     this.$router.push({ name: 'not-found' });
                 }
 
