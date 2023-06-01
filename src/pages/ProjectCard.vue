@@ -9,26 +9,30 @@ export default {
     return {
       projects: [],
       store,
-      loading: true
+      //gestione delle pagine
+      currentPage: 1,
+      lastPage: null,
+      loading: true,
+
 
     }
   },
   methods: {
-    getProjects() {
+    getProjects(gotoPage) {
       this.loading = true;
-      axios.get(`${this.store.baseUrl}/api/projects`
-      )
+      axios.get(`${this.store.baseUrl}/api/projects`, { params: { page: gotoPage } })
         .then(response => {
           console.log(response);
-          this.projects = response.data.results;
+          this.projects = response.data.results.data;
+          //gestione delle pagine
+          this.currentPage = response.data.results.current_page;
+          this.lastPage = response.data.results.last_page;
           this.loading = false;
-          // this.projects = response.data.results.data; //per usare la paginate
-          // console.log(this.projects)
         });
     },
   },
   mounted() {
-    this.getProjects();
+    this.getProjects(1);
   }
 }
 </script>
@@ -64,6 +68,34 @@ export default {
   <div v-else>
     <span class="loader m-3"></span>
     <p class="text-secondary ms-3">Loading...</p>
+  </div>
+
+  <div class="container">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        
+        <li class="page-item">
+          <button @click="getProjects(currentPage - 1)" :class="{ 'disabled': currentPage == 1, 'page-link': true }">
+            <span aria-hidden="true">&laquo;</span>
+          </button>
+        </li>
+
+        <li class="page-item" v-for="page in lastPage" :class="{ 'active': page == currentPage }">
+          <button @click="getProjects(page)" :class="{ 'page-link': true }">
+            {{ page }}
+          </button>
+        </li>
+
+        <li class="page-item">
+          <button @click="getProjects(currentPage + 1)"
+            :class="{ 'disabled': currentPage == lastPage, 'page-link': true }">
+            <span aria-hidden="true">&raquo;</span>
+          </button>
+        </li>
+
+      </ul>
+    </nav>
+
   </div>
 </template>
 
