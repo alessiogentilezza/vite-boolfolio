@@ -40,7 +40,7 @@ export default {
         <div class="card">
           <img v-if="project.cover_image" :src="`${this.store.baseUrl}/storage/${project.cover_image}`"
             class="card-img-top p-3">
-          <img v-else src="public/No_Image_Available-8d923bfe.jpg" class="card-img-top p-3" />
+          <img v-else src="/No_Image_Available-8d923bfe.jpg" class="card-img-top p-3" />
 
           <div class="card-body">
             <h5 class="card-title">{{ project.title }}</h5>
@@ -67,25 +67,4 @@ export default {
   </div>
 </template>
 
-<style scoped>
-.loader {
-  width: 50px;
-  height: 50px;
-  border: 5px solid rgba(0, 0, 0, .5);
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-</style>
+<style></style>
