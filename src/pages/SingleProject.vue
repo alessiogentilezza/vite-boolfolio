@@ -23,6 +23,12 @@
                             </router-link>
                         </div>
 
+                        <!-- <div class="d-flex justify-content-end">
+                            <router-link :to="{ name: 'single-project', params: { slug: 'giappone1' } }"
+                                class="badge rounded-pill text-bg-success">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </router-link>
+                        </div> -->
 
                     </div>
                 </div>
@@ -42,27 +48,45 @@ import { store } from '../store.js';
 
 export default {
     name: 'SingleProject',
+    components: {
+    },
+
     data() {
         return {
             store,
-            project: null
+            project: null,
         }
     },
+    methods: {
+        getProject() {
+            const slug = this.$route.params.slug;
+
+            axios.get(`${this.store.baseUrl}/api/project/${slug}`)
+                .then(response => {
+                    console.log(response);
+                    if (response.data.success == true) {
+                        this.project = response.data.project;
+                    } else {
+                        alert(response.data.error);
+                        this.$router.push({ name: 'not-found' });
+                    }
+                })
+        }
+
+    },
+    created() {
+        this.$watch(
+            () => this.$route.params,
+            (toParams, previousParams) => {
+                this.getProject();
+            }
+        )
+    },
+
     mounted() {
-        const slug = this.$route.params.slug;
-
-        axios.get(`${this.store.baseUrl}/api/project/${slug}`)
-            .then(response => {
-                console.log(response);
-                if (response.data.success == true) {
-                    this.project = response.data.project;
-                } else {
-                    alert(response.data.error);
-                    this.$router.push({ name: 'not-found' });
-                }
-
-            });
-
+        this.getProject();
     }
 }
+
+
 </script>
