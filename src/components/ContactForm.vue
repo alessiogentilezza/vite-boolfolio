@@ -74,6 +74,7 @@ export default {
                         this.email = '';
                         this.message = '';
                         this.success = true;
+
                     } else {
                         this.errors = response.data.errors;
                         console.log(this.errors);
@@ -88,4 +89,4 @@ export default {
         }
     }
 }
-</script>s
+</script>
